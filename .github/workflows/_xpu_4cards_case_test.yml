@@ -154,7 +154,7 @@ jobs:
           set -e
           git config --global --add safe.directory /workspace/FastDeploy
           cd FastDeploy
-          python -m pip config set global.index-url https://pypi.tuna.tsinghua.edu.cn/simple
+          python -m pip config set global.index-url https://pypi.org/simple
           python -m pip install -r requirements.txt
           echo "安装PaddlePaddle..."
           # 针对不同分支和tag使用不同的PaddlePaddle安装包

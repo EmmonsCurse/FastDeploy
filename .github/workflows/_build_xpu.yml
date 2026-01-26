@@ -137,7 +137,7 @@ jobs:
               echo "Date Only: $DATE_ONLY"
               export FASTDEPLOY_VERSION="${FASTDEPLOY_VERSION}.dev${DATE_ONLY}"
             fi
-            python -m pip config set global.index-url https://pypi.tuna.tsinghua.edu.cn/simple
+            python -m pip config set global.index-url https://pypi.org/simple
             # 针对不同分支和tag使用不同的PaddlePaddle安装包
             if [[ "${PADDLE_WHL_URL}" != "" ]];then
               python -m pip install ${PADDLE_WHL_URL}

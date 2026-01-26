@@ -158,7 +158,7 @@ jobs:
           --gpus '"device='"${DEVICES}"'"' ${docker_image} /bin/bash -xc '
           python -m pip install --pre paddlepaddle-gpu -i https://www.paddlepaddle.org.cn/packages/nightly/cu126/
 
-          pip config set global.index-url https://mirrors.tuna.tsinghua.edu.cn/pypi/web/simple
+          pip config set global.index-url https://pypi.org/simple
 
           python -m pip install ${fastdeploy_wheel_url}
 
