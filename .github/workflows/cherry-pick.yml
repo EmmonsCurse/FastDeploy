@@ -131,7 +131,7 @@ jobs:
               # Construct authenticated URL for the fork
               FORK_URL_AUTH="https://${BOT_USERNAME}:${GH_TOKEN}@github.com/${REPO_NAME}.git"
 
-              echo "Pushing to fork..."
+              echo "Pushing to fork...."
               git push "$FORK_URL_AUTH" "$NEW_BRANCH" --force
 
               # Create PR
