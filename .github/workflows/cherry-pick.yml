@@ -106,24 +106,15 @@ jobs:
               git fetch origin "$TARGET_BRANCH"
               git checkout -b "$NEW_BRANCH" "origin/$TARGET_BRANCH"
 
-              # If PR_TITLE starts with "[", don't insert an extra space.
-              if [ "${PR_TITLE:0:1}" = "[" ]; then
-                NEW_TITLE="[Cherry-Pick]$PR_TITLE(#$PR_NUMBER)"
-              else
-                NEW_TITLE="[Cherry-Pick] $PR_TITLE(#$PR_NUMBER)"
-              fi
-
               # Cherry pick
               # Try standard cherry-pick first (for squash merges or single commits)
               if git cherry-pick "$MERGE_COMMIT_SHA"; then
                 echo "Cherry-pick successful."
-                git commit --amend -m "$NEW_TITLE"
               else
                 echo "Standard cherry-pick failed, trying with -m 1 (for merge commits)..."
                 git cherry-pick --abort
                 if git cherry-pick -m 1 "$MERGE_COMMIT_SHA"; then
                   echo "Cherry-pick with -m 1 successful."
-                  git commit --amend -m "$NEW_TITLE"
                 else
                   echo "Cherry-pick failed."
                   git cherry-pick --abort
@@ -144,6 +135,13 @@ jobs:
               git push "$FORK_URL_AUTH" "$NEW_BRANCH" --force
 
               # Create PR
+              # If PR_TITLE starts with "[", don't insert an extra space.
+              if [ "${PR_TITLE:0:1}" = "[" ]; then
+                NEW_TITLE="[Cherry-Pick]$PR_TITLE(#$PR_NUMBER)"
+              else
+                NEW_TITLE="[Cherry-Pick] $PR_TITLE(#$PR_NUMBER)"
+              fi
+
               NEW_BODY="Cherry-pick of #$PR_NUMBER (authored by @${PR_AUTHOR}) to \`$TARGET_BRANCH\`.
 
               devPR:https://github.com/PaddlePaddle/FastDeploy/pull/$PR_NUMBER <!-- For pass CI -->
